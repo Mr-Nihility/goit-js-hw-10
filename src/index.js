@@ -14,14 +14,14 @@ const refs = {
 refs.input.addEventListener('input', debounce(onInput, refs.DEBOUNCE_DELAY));
 
 function onInput(e) {
-  const quary = e.target.value.trim();
+  const query = e.target.value.trim();
   refs.box.innerHTML = '';
   refs.list.innerHTML = '';
-  if (quary === '') {
+  if (query === '') {
     return;
   }
 
-  fetchCountries(quary)
+  fetchCountries(query)
     .then(createMakpUp)
     .catch(() =>
       Notiflix.Notify.failure('Oops, there is no country with that name')
@@ -58,11 +58,9 @@ function createMakpUp(data) {
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
-  } else if (data.length >= 2 && data.length <= 10) {
-    refs.box.innerHTML = '';
+  } else if (data.length >= 2) {
     refs.list.innerHTML = createList(data);
   } else {
-    refs.list.innerHTML = '';
     refs.box.innerHTML = createCountyCard(data);
   }
 }
