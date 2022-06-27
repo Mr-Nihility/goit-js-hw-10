@@ -27,8 +27,8 @@ function onInput(e) {
     .catch(() =>
       Notiflix.Notify.failure('Oops, there is no country with that name')
     );
-  // refs.box.innerHTML = '';
-  // refs.list.innerHTML = '';
+  refs.box.innerHTML = '';
+  refs.list.innerHTML = '';
 }
 
 function createList(arr) {
