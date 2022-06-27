@@ -23,8 +23,8 @@ function onInput(e) {
           'Too many matches found. Please enter a more specific name.'
         );
       } else if (data.length >= 2 && data.length <= 10) {
-        refs.list.innerHTML = createList(data);
         refs.box.innerHTML = '';
+        refs.list.innerHTML = createList(data);
       } else {
         refs.list.innerHTML = '';
         refs.box.innerHTML = createCountyCard(data);
