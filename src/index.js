@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import fetchCountries from './API/fetchCountries';
 import Notiflix from 'notiflix';
 //++++++++++++++++++++++++++++++++++++++++++//
+
 const refs = {
   input: document.querySelector('#search-box'),
   DEBOUNCE_DELAY: 300,
@@ -13,37 +14,27 @@ const refs = {
 refs.input.addEventListener('input', debounce(onInput, refs.DEBOUNCE_DELAY));
 
 function onInput(e) {
-  const quary = e.target.value;
+  const quary = e.target.value.trim();
   fetchCountries(quary)
-    .then(data => {
-      console.log(data);
-
-      if (data.length > 10) {
-        Notiflix.Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      } else if (data.length >= 2 && data.length <= 10) {
-        refs.box.innerHTML = '';
-        refs.list.innerHTML = createList(data);
-      } else {
-        refs.list.innerHTML = '';
-        refs.box.innerHTML = createCountyCard(data);
-      }
-    })
-    .catch(error => console.log(error));
+    .then(createMakpUp)
+    .catch(error =>
+      Notiflix.Notify.failure('Oops, there is no country with that name')
+    );
+  refs.box.innerHTML = '';
+  refs.list.innerHTML = '';
 }
 
 function createList(arr) {
   return (markUp = arr
     .map(item => {
-      return `<li class="country-item"><img class="country-img" src="${item.flags.png}" alt="${item.name}" width="60"> <p class="country-title">${item.name}</pc></li>`;
+      return `<li class="country-item"><img class="country-img" src="${item.flags.svg}" alt="${item.name}" width="60"> <p class="country-title">${item.name}</pc></li>`;
     })
     .join(''));
 }
 
 function createCountyCard(arr) {
   return `<h2 class="title">
-            <img class="box-img" src="${arr[0].flags.png}" alt="${
+            <img class="box-img" src="${arr[0].flags.svg}" alt="${
     arr[0].name
   }" width="60">${arr[0].name}
           </h2>
@@ -56,4 +47,18 @@ function createCountyCard(arr) {
             <p class="text"> <span class="forhand">Languages: </span>${arr[0].languages
               .map(item => item.name)
               .join(' ,')}</p>`;
+}
+
+function createMakpUp(data) {
+  if (data.length > 10) {
+    Notiflix.Notify.info(
+      'Too many matches found. Please enter a more specific name.'
+    );
+  } else if (data.length >= 2 && data.length <= 10) {
+    refs.box.innerHTML = '';
+    refs.list.innerHTML = createList(data);
+  } else {
+    refs.list.innerHTML = '';
+    refs.box.innerHTML = createCountyCard(data);
+  }
 }
