@@ -1,9 +1,9 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
-import fetchCountries from './API/fetchCountries';
+import { fetchCountries } from './API/fetchCountries';
 import Notiflix from 'notiflix';
 //++++++++++++++++++++++++++++++++++++++++++//
-
+console.log(debounce);
 const refs = {
   input: document.querySelector('#search-box'),
   DEBOUNCE_DELAY: 300,
@@ -15,13 +15,20 @@ refs.input.addEventListener('input', debounce(onInput, refs.DEBOUNCE_DELAY));
 
 function onInput(e) {
   const quary = e.target.value.trim();
+
+  if (quary === '') {
+    refs.box.innerHTML = '';
+    refs.list.innerHTML = '';
+    return;
+  }
+
   fetchCountries(quary)
     .then(createMakpUp)
-    .catch(error =>
+    .catch(() =>
       Notiflix.Notify.failure('Oops, there is no country with that name')
     );
-  refs.box.innerHTML = '';
-  refs.list.innerHTML = '';
+  // refs.box.innerHTML = '';
+  // refs.list.innerHTML = '';
 }
 
 function createList(arr) {

@@ -2,9 +2,11 @@ import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 //++++++++++++++++++++++++++++++++++++++++++//
 
-export default function fetchCountries(name) {
-  const BASE_URL = `https://restcountries.com/v2/name/${name}`;
-  return fetch(BASE_URL).then(response => {
+export function fetchCountries(name) {
+  const options = '?fields=name,capital,flags,languages,population';
+  const BASE_URL = 'https://restcountries.com/v2/name/';
+  const itemToFind = BASE_URL + name + options;
+  return fetch(itemToFind).then(response => {
     if (!response.ok) {
       throw new Error(response.status);
     }
