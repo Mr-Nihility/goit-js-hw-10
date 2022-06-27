@@ -15,10 +15,9 @@ refs.input.addEventListener('input', debounce(onInput, refs.DEBOUNCE_DELAY));
 
 function onInput(e) {
   const quary = e.target.value.trim();
-
+  refs.box.innerHTML = '';
+  refs.list.innerHTML = '';
   if (quary === '') {
-    refs.box.innerHTML = '';
-    refs.list.innerHTML = '';
     return;
   }
 
@@ -27,8 +26,6 @@ function onInput(e) {
     .catch(() =>
       Notiflix.Notify.failure('Oops, there is no country with that name')
     );
-  refs.box.innerHTML = '';
-  refs.list.innerHTML = '';
 }
 
 function createList(arr) {
