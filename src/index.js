@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import { fetchCountries } from './API/fetchCountries';
 import Notiflix from 'notiflix';
 //++++++++++++++++++++++++++++++++++++++++++//
-console.log(debounce);
+
 const refs = {
   input: document.querySelector('#search-box'),
   DEBOUNCE_DELAY: 300,
