@@ -29,11 +29,11 @@ function onInput(e) {
 }
 
 function createList(arr) {
-  return (markUp = arr
+  return arr
     .map(item => {
       return `<li class="country-item"><img class="country-img" src="${item.flags.svg}" alt="${item.name}" width="60"> <p class="country-title">${item.name}</pc></li>`;
     })
-    .join(''));
+    .join('');
 }
 
 function createCountyCard(arr) {
