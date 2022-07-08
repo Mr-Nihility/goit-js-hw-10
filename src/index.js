@@ -37,7 +37,7 @@ function createList(arr) {
 }
 
 function createCountyCard(arr) {
-  return `<h2 class="title">
+  return `<article class="card"><h2 class="title">
             <img class="box-img" src="${arr[0].flags.svg}" alt="${
     arr[0].name
   }" width="60">${arr[0].name}
@@ -50,7 +50,7 @@ function createCountyCard(arr) {
           }</p>
             <p class="text"> <span class="forhand">Languages: </span>${arr[0].languages
               .map(item => item.name)
-              .join(' ,')}</p>`;
+              .join(' ,')}</p></article>`;
 }
 
 function createMakpUp(data) {
